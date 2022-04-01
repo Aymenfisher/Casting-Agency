@@ -107,7 +107,7 @@ The Casting Agency  api can  be run locally using Flask (see previous sections).
 
 And also is hosted in a base URL:
 
- `http://127.0.0.1:5000/`
+ `https://aymen-casting-agency.herokuapp.com/`
 ### Authentication: 
 The Casting Agency API grants authentication for three Roles:
 1. Casting Assistant: Can view actors and movies.
@@ -160,7 +160,7 @@ On the following format : Example for bad token format:
 - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1. 
 - Sample :
 ```bash 
-curl http://127.0.0.1:5000/actors
+curl https://aymen-casting-agency.herokuapp.com/actors
 ```
 Output
 ```
@@ -168,7 +168,7 @@ Output
 ```
 - Sample 2 : page 2
 ```bash
-curl http://127.0.0.1:5000/actors?page=2
+curl https://aymen-casting-agency.herokuapp.com/actors?page=2
 ```
 Output
 ```
@@ -179,7 +179,7 @@ Output
 - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1. 
 - Sample :
 ```bash 
-curl http://127.0.0.1:5000/actors
+curl https://aymen-casting-agency.herokuapp.com/movies
 ```
 Output
 ```
@@ -194,11 +194,11 @@ it returns a list of success value, the name of the created actor, and number of
 - Re-Creating an existing actor is not allowed.
 - Sample:
 ```bash
-curl -X POST http://127.0.0.1:5000/actors -H "Content-Type: application/json" -d '{"name":"steven seagal","age":"69","gender":"male"}'
+curl -X POST https://aymen-casting-agency.herokuapp.com/actors -H "Content-Type: application/json" -d '{"name":"steven seagal","age":"69","gender":"male"}'
 ```
 If you are using windows ```CMD``` use this format :
 ```bash
-curl -X POST http://127.0.0.1:5000/movies -H "Content-Type: application/json" -d "{\"name\":\"steven seagal\",\"age\":\"69\",\"gender\":\"male\"}"
+curl -X POST https://aymen-casting-agency.herokuapp.com/actors -H "Content-Type: application/json" -d "{\"name\":\"steven seagal\",\"age\":\"69\",\"gender\":\"male\"}"
 ```
 Output:
 ```bash
