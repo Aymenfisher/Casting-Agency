@@ -107,9 +107,9 @@ The Casting Agency  api can  be run locally using Flask (see previous sections).
 
 And also is hosted in a base URL:
 
- `https://aymen-casting-agency.herokuapp.com/`
+ `https://casting-agency-aymen.herokuapp.com/`
 ### Authentication: 
-The Casting Agency API grants authentication for three Roles:
+The Casting Agency API requires authentication, it grants authentication for three Roles:
 1. Casting Assistant: Can view actors and movies.
 2. Casting Manager: All permissions a Casting Assistant has plus:
    - Add or delete an actor from the Database.
@@ -160,31 +160,187 @@ On the following format : Example for bad token format:
 - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1. 
 - Sample :
 ```bash 
-curl https://aymen-casting-agency.herokuapp.com/actors
+curl --location --request GET 'https://casting-agency-aymen.herokuapp.com/actors' \
+--header 'Authorization: Bearer <token>'
 ```
 Output
 ```
-
+{
+    "actors": [
+        {
+            "age": 24,
+            "gender": "male",
+            "name": "aymen"
+        },
+        {
+            "age": 65,
+            "gender": "male",
+            "name": "tom hanks"
+        },
+        {
+            "age": 47,
+            "gender": "male",
+            "name": "leaonardo dicaprio"
+        },
+        {
+            "age": 37,
+            "gender": "female",
+            "name": "scarlett johansson"
+        },
+        {
+            "age": 40,
+            "gender": "male",
+            "name": "chris evans"
+        },
+        {
+            "age": 46,
+            "gender": "female",
+            "name": "angelina jolie"
+        },
+        {
+            "age": 55,
+            "gender": "female",
+            "name": "actor1"
+        },
+        {
+            "age": 70,
+            "gender": "male",
+            "name": "actor2"
+        },
+        {
+            "age": 80,
+            "gender": "male",
+            "name": "actor33"
+        },
+        {
+            "age": 66,
+            "gender": "female",
+            "name": "actor55"
+        }
+    ],
+    "total_actors": 12
+}
 ```
 - Sample 2 : page 2
 ```bash
-curl https://aymen-casting-agency.herokuapp.com/actors?page=2
+curl --location --request GET 'https://casting-agency-aymen.herokuapp.com/actors?page=2' \
+--header 'Authorization: Bearer <token>'
 ```
 Output
 ```
-
+{
+    "actors": [
+        {
+            "age": 22,
+            "gender": "female",
+            "name": "actor6"
+        },
+        {
+            "age": 66,
+            "gender": "male",
+            "name": "actor9"
+        }
+    ],
+    "total_actors": 12
+}
 ```
 ### GET '/movies'
 - General: returns a list of movies object and number of total actors. Each movie object contains the title and the release date of the movie.
 - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1. 
 - Sample :
 ```bash 
-curl https://aymen-casting-agency.herokuapp.com/movies
+curl --location --request GET 'https://casting-agency-aymen.herokuapp.com/movies' \
+--header 'Authorization: Bearer <token>'
 ```
 Output
 ```
+{
+    "movies": [
+        {
+            "release_date": "1994-9-22",
+            "title": "the shawshank redemption"
+        },
+        {
+            "release_date": "1972-3-24",
+            "title": "the godfather"
+        },
+        {
+            "release_date": "2008-7-18",
+            "title": "the dark knight"
+        },
+        {
+            "release_date": "1999-11-11",
+            "title": "fight club"
+        },
+        {
+            "release_date": "2010-7-8",
+            "title": "inception"
+        },
+        {
+            "release_date": "1997-10-2",
+            "title": "movie1"
+        },
+        {
+            "release_date": "1998-03-10",
+            "title": "movie2"
+        },
+        {
+            "release_date": "1999-10-4",
+            "title": "movie3"
+        },
+        {
+            "release_date": "2000-10-5",
+            "title": "movie4"
+        },
+        {
+            "release_date": "1997-10-6",
+            "title": "movie5"
+        }
+    ],
+    "total_movies": 17
+}
 ```
-
+- Sample 2 : page 2
+```bash
+curl --location --request GET 'https://casting-agency-aymen.herokuapp.com/movies?page=2' \
+--header 'Authorization: Bearer <token>'
+```
+Output
+```
+{
+    "movies": [
+        {
+            "release_date": "1997-10-7",
+            "title": "movie6"
+        },
+        {
+            "release_date": "1997-10-8",
+            "title": "movie7"
+        },
+        {
+            "release_date": "1997-10-9",
+            "title": "movie8"
+        },
+        {
+            "release_date": "1997-10-10",
+            "title": "movie9"
+        },
+        {
+            "release_date": "1997-10-11",
+            "title": "movie10"
+        },
+        {
+            "release_date": "1997-10-12",
+            "title": "movie11"
+        },
+        {
+            "release_date": "1997-10-13",
+            "title": "movie12"
+        }
+    ],
+    "total_movies": 17
+}
+```
 ### POST '/actors'
 - General: Creates a new actor by submitting the actor's, name, age, and the gender :
     - The age must be an integer.
@@ -194,15 +350,23 @@ it returns a list of success value, the name of the created actor, and number of
 - Re-Creating an existing actor is not allowed.
 - Sample:
 ```bash
-curl -X POST https://aymen-casting-agency.herokuapp.com/actors -H "Content-Type: application/json" -d '{"name":"steven seagal","age":"69","gender":"male"}'
+curl --location --request POST 'https://casting-agency-aymen.herokuapp.com/actors' \
+--header 'Authorization: Bearer <token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name":"john cena",
+    "age":44,
+    "gender":"male"
+}'
 ```
-If you are using windows ```CMD``` use this format :
-```bash
-curl -X POST https://aymen-casting-agency.herokuapp.com/actors -H "Content-Type: application/json" -d "{\"name\":\"steven seagal\",\"age\":\"69\",\"gender\":\"male\"}"
-```
-Output:
-```bash
 
+Output:
+```
+{
+    "inserted": "john cena",
+    "success": true,
+    "total_actors": 13
+}
 ```
 ### POST '/movies'
 - General: Creates a new movie by submitting the movie's title and release date :
@@ -212,51 +376,92 @@ it returns a list of success value, the title of the created movie, and number o
 - Re-Creating an existing actor is not allowed.
 - Sample:
 ```bash
-curl -X POST http://127.0.0.1:5000/movies -H "Content-Type: application/json" -d '{"title":"Tinker Tailer Soldier Spy","release_date":"2011-09-16"}'
-```
-If you are using windows ```CMD``` use this format :
-```bash
-curl -X POST http://127.0.0.1:5000/movies -H "Content-Type: application/json" -d "{\"title\":\"Tinker Tailer Soldier Spy\",\"release_date\":\"2011-09-16\"}"
+curl --location --request POST 'https://casting-agency-aymen.herokuapp.com/movies' \
+--header 'Authorization: Bearer <token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title":"21 jump street",
+    "release_date":"2012-03-16"
+}'
 ```
 Output:
-```bash
-
+```
+{
+    "inserted": "21 jump street",
+    "success": true,
+    "total_actors": 18
+}
 ```
 ### DELETE '/actors/{actor_id}'
 - General: Deletes the actor of the given ID if it exists.
 It returns the success value, the ID of the deleted actor and the number of the total actors.
 - Sample:
 ```bash
-curl -X DELETE http://127.0.0.1:5000/actors/4
+curl --location --request DELETE 'https://casting-agency-aymen.herokuapp.com/actors/5' \
+--header 'Authorization: Bearer <token>'
 ```
 Output:
 ```
+{
+    "deleted": 5,
+    "success": true,
+    "total_actors": 12
+}
 ```
 ### DELETE '/movies/{movie_id}'
 - General: Deletes the movie of the given ID if it exists.
 It returns the success value, the ID of the deleted movie and the number of the total movies.
 - Sample:
 ```bash
-curl -X DELETE http://127.0.0.1:5000/movies/4
+curl --location --request DELETE 'https://casting-agency-aymen.herokuapp.com/movies/5' \
+--header 'Authorization: Bearer <token>'
 ```
 Output:
 ```
+{
+    "deleted": 5,
+    "success": true,
+    "total_movies": 17
+}
 ```
 ### PATCH '/actors/{actor_id}'
 - General: Modifies the actor if the given ID using the data in the request JSON body if it exists. 
 It returns the success value, the ID of the modified actor and the number of the total actors.
 - Sample:
 ```bash
+curl --location --request PATCH 'https://casting-agency-aymen.herokuapp.com/actors/3' \
+--header 'Authorization: Bearer <token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "age":48,
+    "name":"LEONARDO DICAPRIO"
+}'
 ```
 Output:
 ```bash
+{
+    "success": true,
+    "total_actors": 12,
+    "updated": 3
+}
 ```
 ### PATCH '/movies/{movie_id}'
 - General: Modifies the movie if the given ID using the data in the request JSON body if it exists. 
 It returns the success value, the ID of the modified movie and the number of the total movies.
 - Sample:
 ```bash
+curl --location --request PATCH 'https://casting-agency-aymen.herokuapp.com/movies/3' \
+--header 'Authorization: Bearer <token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title":"Batman the dark knight"
+}'
 ```
 Output:
-```bash
+```
+{
+    "success": true,
+    "total_movies": 17,
+    "updated": 3
+}
 ```
